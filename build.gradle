@@ -1,0 +1,14 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = targetCompatibility = 1.8
+
+
+jar {
+	manifest {
+		attributes(
+			'Automatic-Module-Name': "github.lightningcreations.lcjei"
+		)
+	}
+}
