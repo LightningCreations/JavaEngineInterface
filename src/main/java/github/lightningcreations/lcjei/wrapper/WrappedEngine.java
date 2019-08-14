@@ -6,7 +6,7 @@ import github.lightningcreations.lcjei.IEngineInterface;
 
 /**
  * Represents a Engine that can be used to insert a Game belonging to a different Engine, called the Guest Engine, into a Host Engine. <br/>
- * 
+ * Most methods are forwarded to the Guest, possible gathering resources from the host.
  * @author chorm
  *
  * @param <GuestGameType> The type of the Game used by the Guest Engine.
@@ -19,12 +19,18 @@ public final class WrappedEngine<GuestGameType, HostGameType>
 	private IEngineInterface<HostGameType> host;
 	private WrappedGame<GuestGameType,HostGameType> wrapped;
 	private Container drawContainer;
+	/**
+	 * Contracts a new Wrapped Engine with a given guest engine, host engine, and host game.
+	 * @param guest The Interface to the Guest Engine.
+	 * @param host The Interface to the Host Engine.
+	 * @param hostGame The Host Game that is wrapping/embedding the Guest Game.
+	 */
 	public WrappedEngine(IEngineInterface<GuestGameType> guest,IEngineInterface<HostGameType> host,HostGameType hostGame) {
 		this.guest = guest;
 		this.host = host;
 		this.wrapped = new WrappedGame<>(guest,host,hostGame);
 	}
-
+	
 	@Override
 	public boolean initialize(Container c) throws IllegalStateException {
 		if(guest.initialize(c)) {
@@ -35,6 +41,9 @@ public final class WrappedEngine<GuestGameType, HostGameType>
 		return false;
 	}
 
+	/**
+	 * Initializes the guest to draw to the host's current draw container as though by {{@link #initialize(Container)}.
+	 */
 	@Override
 	public void initialize() throws IllegalStateException {
 		initialize(host.getCurrentDrawContainer());

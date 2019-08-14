@@ -2,7 +2,15 @@ package github.lightningcreations.lcjei;
 
 import java.awt.Container;
 
-
+/**
+ * Class Representing an Interface to a Game Engine that runs games of a specified type.<br/>
+ * Provided a way to access this Interface is the minimum requirements for Compliance with the Lightning Creations Java Game Interface Specification.<br/>
+ * This Interface makes it possible for game engines to delegate to other game engines, wrap games from other engines, or even embed games from other engines to other games.<br/>
+ * 
+ * @author chorm
+ *
+ * @param <GameType> The type of the Game which is used by the Engine.
+ */
 public interface IEngineInterface<GameType> extends Runnable {
 	
 	/**

@@ -4,6 +4,8 @@ apply plugin: 'eclipse'
 
 sourceCompatibility = targetCompatibility = 1.8
 
+group = "github.lightningcreations.lcjei"
+version = "1.0"
 
 jar {
 	manifest {
