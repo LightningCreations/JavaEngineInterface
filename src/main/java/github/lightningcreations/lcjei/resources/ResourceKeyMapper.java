@@ -22,7 +22,7 @@ public interface ResourceKeyMapper<GuestKeyType, HostKeyType> {
 	public HostKeyType mapToHost(GuestKeyType guestKey);
 	/**
 	 * Returns the guest key that can be used with a MappedResourceSet to get the resource with hostKey.<br/>
-	 * This method MUST be equality preserving and a perfect inverse to {{@link #mapToHost(Object)}.
+	 * This method MUST be equality preserving and a perfect inverse to {@link #mapToHost(Object)}.
 	 * Failure to abide by this contract may have unexpected results.<br/>
 	 * The mapping function does not permit null inputs and MUST NOT return null.<br/>
 	 * If hostKey is not in the range of the function, {{@link #mapToGuest(Object)} returns null.
