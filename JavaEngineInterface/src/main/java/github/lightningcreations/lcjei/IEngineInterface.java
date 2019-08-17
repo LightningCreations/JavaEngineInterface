@@ -8,7 +8,12 @@ import java.awt.Container;
  * This Interface makes it possible for game engines to delegate to other game engines, wrap games from other engines, or even embed games from other engines to other games.<br/>
  * 
  * All Methods are allowed to check an unspecified permission with the System or some other unspecified Security Manager. 
- * As such, all methods can possibly throw a SecurityException.
+ * As such, all methods can possibly throw a SecurityException. 
+ * 
+ * IEngineInterfaces are intended to be created in an uninitialized state. 
+ *  However, implementations may provide methods of wrapping active engines in an LCJEI {@link IEngineInterface}. 
+ *  As such these methods create or return an IEngineInterface in an implementation-specific, but valid state. 
+ *  Consult the documentation for the specific implementation for what states these methods leave the interface in.<br/>
  * @author chorm
  *
  * @param <GameType> The type of the Game which is used by the Engine.
