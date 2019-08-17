@@ -20,7 +20,7 @@ public final class WrappedEngine<GuestGameType, HostGameType>
 	private WrappedGame<GuestGameType,HostGameType> wrapped;
 	private Container drawContainer;
 	/**
-	 * Contracts a new Wrapped Engine with a given guest engine, host engine, and host game.
+	 * Constructs a new Wrapped Engine with a given guest engine, host engine, and host game.
 	 * @param guest The Interface to the Guest Engine.
 	 * @param host The Interface to the Host Engine.
 	 * @param hostGame The Host Game that is wrapping/embedding the Guest Game.
@@ -69,6 +69,16 @@ public final class WrappedEngine<GuestGameType, HostGameType>
 	public WrappedGame<GuestGameType, HostGameType> getGameObject() {
 		// TODO Auto-generated method stub
 		return wrapped;
+	}
+
+	@Override
+	public void suspend() throws IllegalStateException {
+		guest.suspend();
+	}
+
+	@Override
+	public void resume() throws IllegalStateException {
+		guest.resume();
 	}
 
 }

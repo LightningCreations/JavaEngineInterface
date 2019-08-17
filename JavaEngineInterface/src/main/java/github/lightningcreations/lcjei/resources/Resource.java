@@ -2,6 +2,7 @@ package github.lightningcreations.lcjei.resources;
 
 import java.io.InputStream;
 import java.nio.channels.SeekableByteChannel;
+import java.util.Optional;
 
 /**
  * Represents a Raw object somewhere which can be read and is named by a ResourceKey.

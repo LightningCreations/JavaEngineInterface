@@ -1,0 +1,23 @@
+{
+	"package-info":{
+		"name":"lcjei",
+		"description":[
+			"Library for Interoperation between Lightning Creations Java Game Engines",
+			"Provides Basic APIs for binding and wrapping games belonging to compliant engines"
+		],
+		"version":"1.0",
+		"distributor":"Lightning Creations",
+		"license":"lgplv3",
+		"group":"java-classpath;java-modulepath"
+	},
+	"provider":{
+		"name":"lcroot",
+		"ref":"https://lcupm-package-repo.glitch.me/certificates/lcroot.crt",
+		"kind":"certificate",
+		"fingerprint":"56d7e84af253be9f6fc4ef0df2e5a70327fb9c3f",
+		"signature":"https://lcupm-package-repo.glitch.me/packages/signatures/lcjei.json"
+	},
+	"dist":{
+		"*":""
+	}
+}

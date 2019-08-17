@@ -7,6 +7,8 @@ import java.awt.Container;
  * Provided a way to access this Interface is the minimum requirements for Compliance with the Lightning Creations Java Game Interface Specification.<br/>
  * This Interface makes it possible for game engines to delegate to other game engines, wrap games from other engines, or even embed games from other engines to other games.<br/>
  * 
+ * All Methods are allowed to check an unspecified permission with the System or some other unspecified Security Manager. 
+ * As such, all methods can possibly throw a SecurityException.
  * @author chorm
  *
  * @param <GameType> The type of the Game which is used by the Engine.
@@ -50,16 +52,19 @@ public interface IEngineInterface<GameType> extends Runnable {
 	 * Attempting to call this method in violation of this contract causes a {@link java.lang.IllegalStateException}.
 	 * After this call, the engine shall be in an uninitialized state and can be discarded or reused.<br/>
 	 * 
+	 * Destroying an engine in a suspended state shall be well-defined, but has unspecified results. 
+	 * 
 	 * The results of garbage collecting an EngineInterface object that refers to an engine that has been initialized but not destroyed are undefined.
 	 * @throws IllegalStateException if the Engine has not yet been initialized or has been destroyed without being reinitialized
 	 */
 	public void destroy()throws IllegalStateException;
 	
 	/**
-	 * Executes the game.<br/>
-	 * This method MUST only be called between succesful calls of initialize and destroy.
-	 * 
-	 * @throws IllegalStateException If the method is called before the Engine is initialized, or after it is destroyed but before it has been reininitialized.
+	 * Executes the game. This method returns immediately<br/>
+	 * This method MUST only be called between succesfull calls of initialize and destroy,
+	 *  and may be called at most once between each call to initialize and destroy.<br/>
+	 * After a succesful call to this method, the engine shall be executing.
+	 * @throws IllegalStateException If the method is called before the Engine is initialized, or after it is destroyed but before it has been reininitialized, or has been called multiple times between a succesful call to initialize and destory.
 	 */
 	public void run()throws IllegalStateException;
 	
@@ -91,4 +96,24 @@ public interface IEngineInterface<GameType> extends Runnable {
 	public default IGameInfo<GameType> getGameInfo() throws UnsupportedOperationException{
 		return null;
 	}
+	
+	/**
+	 * Causes game execution to halt temporarily. It can be resumed by a call to resume().
+	 * If called from a Thread that is started as part of game execution, the results are undefined.<br/>
+	 * This method may not be called unless the game is executing (that is, run() has succesfully returned), and the game is not suspended.
+	 *  Calls to this method made in violation of this rule cause an IllegalStateException to be thrown.<br/>
+	 * After this call, the engine shall be in a suspended state.
+	 * @throws IllegalStateException if the method is called on an engine that is not in an executing state.
+	 */
+	public void suspend()throws IllegalStateException;
+	
+	/**
+	 * Resumes execution of a suspended game. <br/>
+	 * This method may only be called on an engine in a suspended state.
+	 *  Calls to this method in violation of this contract cause an IllegalStateException to be thrown. <br/>
+	 * 
+	 * After this call, the engine shall be in an executing state.
+	 * @throws IllegalStateException if the method is called on an engine that is not in a suspended state.
+	 */
+	public void resume()throws IllegalStateException;
 }
